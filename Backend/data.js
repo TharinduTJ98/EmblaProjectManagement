@@ -23,7 +23,10 @@ const projects = [
       "revenue": 9000,
       "status": "not completed"
     },
-    { "id": 5, "name": "Program Pad", "revenue": 11000, "status": "completed" },
+    { "id": 5, 
+     "name": "Program Pad", 
+     "revenue": 11000, 
+     "status": "completed" },
     {
       "id": 6,
       "name": "Project Synergy",

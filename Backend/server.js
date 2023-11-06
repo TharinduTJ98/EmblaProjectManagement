@@ -5,6 +5,7 @@ const port = 5000;
 const {
   getAllProjects,
   getProject,
+  getTopPerformProjects
 } = require("./controller/ProjectController");
 
 const server = http.createServer((req, res) => {
@@ -14,9 +15,14 @@ const server = http.createServer((req, res) => {
     req.url.match(/\/api\/v1\/projects\/([0-9]+)/) &&
     req.method == "GET"
   ) {
-    
     const id = parseInt(req.url.split("/")[4]);
     getProject(req,res,id);
+  } else if(req.url == "/api/v1/projects/getTopProject" && req.method == "GET"){
+    getTopPerformProjects(req,res)
+  }
+  else{
+    res.writeHead(404, { 'Content-Type': "application/json" });
+    res.end(JSON.stringify({message:"No Routes Found"}));
   }
 });
 
