@@ -2,47 +2,47 @@ const projects = [
     {
       "id": 1,
       "name": "Project Breeze",
-      "revenue": 25000,
+      "Revenue": 25000,
       "status": "not completed"
     },
     {
       "id": 2,
       "name": "Command Program",
-      "revenue": 5000,
+      "Revenue": 5000,
       "status": "completed"
     },
     {
       "id": 3,
       "name": "Project Point",
-      "revenue": 35000,
+      "Revenue": 35000,
       "status": "not completed"
     },
     {
       "id": 4,
       "name": "Project Mecha",
-      "revenue": 9000,
+      "Revenue": 9000,
       "status": "not completed"
     },
     { "id": 5, 
      "name": "Program Pad", 
-     "revenue": 11000, 
+     "Revenue": 11000, 
      "status": "completed" },
     {
       "id": 6,
       "name": "Project Synergy",
-      "revenue": 18000,
+      "Revenue": 18000,
       "status": "not completed"
     },
     {
       "id": 7,
       "name": "Dynamic Program",
-      "revenue": 25000,
+      "Revenue": 25000,
       "status": "not completed"
     },
     {
       "id": 8,
       "name": "Project Zenen",
-      "revenue": 12000,
+      "Revenue": 12000,
       "status": "completed"
     }
 ];
