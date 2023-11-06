@@ -21,6 +21,29 @@ const server = http.createServer((req, res) => {
             res.end("Project not found!");
         }
     }
+    else if (req.method === "POST" && req.url === "/api/projects") {
+        let body = '';
+        req.on('data', (data) => {
+            body += data;
+        });
+
+        req.on('end', () => {
+            try {
+                const { name, revenue, status } = JSON.parse(body);
+                // needs to validate the body.
+
+                const newId = Math.max(...projects.map((project) => project.id), 0) + 1;
+                const newProject = { id: newId, name, revenue, status };
+
+                projects.push(newProject);
+                res.writeHead(201, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify(newProject));
+            } catch (error) {
+                res.writeHead(400);
+                res.end('Invalid JSON data');
+            }
+        });
+    }
 });
 
 server.listen(port, () => console.log(`Server is running on port ${port}.`));
