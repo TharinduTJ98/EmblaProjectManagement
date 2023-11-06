@@ -10,10 +10,10 @@ export class ProjectService {
   constructor(private _http:HttpClient) { }
 
   getProjects():Observable<any>{
-    return this._http.get("http://localhost:3000/projects");
+    return this._http.get("http://localhost:5000/projects");
   }
 
   deleteProject(id:any):Observable<any>{
-    return this._http.delete(`http://localhost:3000/projects/${id}`)
+    return this._http.delete(`http://localhost:5000/projects/${id}`)
   }
 }
