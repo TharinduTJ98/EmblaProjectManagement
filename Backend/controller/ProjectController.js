@@ -31,8 +31,24 @@ function getTopPerformProjects(req, res) {
   
 }
 
+function deleteProject(req,res,id){
+
+  const index = projects.findIndex(project => project.id == id);
+  console.log(index)
+  if (index !== -1) {
+    projects.splice(index, 1);
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({message:"Sucess"}))
+  }
+  else {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({message:"No project id found with given id"}))
+  }
+}
+
 module.exports = {
   getAllProjects,
   getProject,
   getTopPerformProjects,
+  deleteProject
 };
