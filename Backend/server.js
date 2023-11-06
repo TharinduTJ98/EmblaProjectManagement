@@ -7,6 +7,7 @@ const {
   getProject,
   getTopPerformProjects,
   deleteProject,
+  createProject
 } = require("./controller/ProjectController");
 
 const server = http.createServer((req, res) => {
@@ -34,6 +35,8 @@ const server = http.createServer((req, res) => {
   ) {
     const id = parseInt(req.url.split("/")[4]);
     deleteProject(req, res, id);
+  } else if (req.url == "/api/v1/projects" && req.method == "POST") {
+    createProject(req, res);
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ message: "No Routes Found" }));
