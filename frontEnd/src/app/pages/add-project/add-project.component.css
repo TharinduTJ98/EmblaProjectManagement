@@ -1,0 +1,21 @@
+.row{
+    display: flex;
+    gap: 10px;
+
+    mat-form-field{
+        width: 80%;
+    }
+}
+
+.container{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.action{
+    padding-left: 35%;
+    button{
+        flex: 1;
+    }
+}

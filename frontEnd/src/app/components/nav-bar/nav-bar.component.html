@@ -2,7 +2,10 @@
     <mat-toolbar color="primary">
       <span>Embla Project Managment System</span>
       <span class="example-spacer"></span>
-      <button mat-flat-button color="accent" routerLink="/addProject">Add Project</button>
-
+      <div class="btnAction">
+        <button mat-flat-button color="accent" routerLink="/addProject">Add Project</button>
+        <button mat-flat-button color="warn" routerLink="">Project List</button>
+      </div>
     </mat-toolbar>
 </p>
+<router-outlet></router-outlet>
