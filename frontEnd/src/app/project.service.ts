@@ -16,4 +16,12 @@ export class ProjectService {
   deleteProject(id:any):Observable<any>{
     return this._http.delete(`http://localhost:5000/api/v1/projects/${id}`)
   }
+
+  getCompletedProjects():Observable<any>{
+    return this._http.get("http://localhost:5000/api/v1/projects/completed");
+  }
+
+  getTopProjects():Observable<any>{
+    return this._http.get("http://localhost:5000/api/v1/projects/getTopProject");
+  }
 }
