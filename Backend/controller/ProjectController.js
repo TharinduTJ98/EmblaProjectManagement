@@ -1,80 +1,104 @@
 const projects = require("../data");
 
-function getAllProjects(req, res) {
-  res.writeHead(200, { "Content-Type": "application/json" });
-  res.end(JSON.stringify(projects));
+function sendResponse(res, status, data) {
+  res.writeHead(status, { "Content-Type": "application/json" });
+  res.end(JSON.stringify(data));
 }
 
-function getProject(req, res, id) {
-  const project = projects.find((p) => p.id === id);
-  if (project) {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(project));
-  } else {
-    res.writeHead(404, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "No project Found with Given Id" }));
-  }
+function getAllProjects(req, res) {
+  console.log("getting all projects");
+  sendResponse(res, 200, projects);
 }
 
 function getTopPerformProjects(req, res) {
+  console.log("getting top projects");
   const topPerformProjects = projects
+    .filter((project) => project.revenue > 0)
     .sort((a, b) => b.revenue - a.revenue)
-    .slice(0, 3)
-    .filter((project) => {
-      return project.revenue > 0;
-    });
-  if (topPerformProjects) {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(topPerformProjects));
+    .slice(0, 3);
+
+  if (topPerformProjects.length > 0) {
+    sendResponse(res, 200, topPerformProjects);
   } else {
-    res.writeHead(404, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "No top perform Projects" }));
+    sendResponse(res, 404, { message: "No top-performing projects found" });
   }
 }
 
-function deleteProject(req, res, id) {
-  const index = projects.findIndex((project) => project.id == id);
-  if (index !== -1) {
-    projects.splice(index, 1);
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "Sucess" }));
+function getCompletedProjects(req, res) {
+  console.log("getting completed projects");
+  const completedProjects = projects.filter((project) => project.isCompleted);
+
+  if (completedProjects.length > 0) {
+    sendResponse(res, 200, completedProjects);
   } else {
-    res.writeHead(404, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "No project id found with given id" }));
+    sendResponse(res, 404, { message: "No completed projects found" });
   }
 }
 
-function createProject(req, res) {
+async function createProject(req, res) {
   try {
-    let body = "";
+    const body = await getPostData(req); 
 
-    req.on("data", (chunk) => {
-      body += chunk.toString();
-    });
+    const project = JSON.parse(body);
 
-    req.on("end", () => {
-      const { name, revenue, status } = JSON.parse(body);
-      if (name == " " || revenue == " ") {
-        res.writeHead(400, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ message: "Please Add project details" }));
-        return;
-      } else {
-        const newId = Math.max(...projects.map((project) => project.id), 0) + 1;
-        const newProject = { id: newId, name, revenue, status };
-        projects.push(newProject);
-        res.writeHead(201, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ message: "Sucess", data:newProject}));
-      }
-    });
+    console.log("Adding Project", project);
+
+    projects.push(project);
+
+    sendResponse(res, 200, JSON.stringify(project));
   } catch (error) {
-    console.error(error);
+    console.log(error);
+  }
+}
+
+async function deleteProject(req, res) {
+  try {
+    const body = await getPostData(req);
+
+    const parsedBodyObject = JSON.parse(body); // { id: 1 }
+
+    console.log(parsedBodyObject);
+
+    console.log(typeof parsedBodyObject.id);
+
+    const index = projects.findIndex(
+      (project) => project.id === parsedBodyObject.id
+    );
+
+    projects.splice(index, 1);
+
+    sendResponse(
+      res,
+      200,
+      JSON.stringify({ message: `Project ${parsedBodyObject.id} removed` })
+    );
+  } catch (error) {
+    console.log(error);
   }
 }
 
 module.exports = {
   getAllProjects,
-  getProject,
   getTopPerformProjects,
+  getCompletedProjects,
   deleteProject,
   createProject,
 };
+
+function getPostData(req) {
+  return new Promise((resolve, reject) => {
+    try {
+      let body = "";
+
+      req.on("data", (chunk) => {
+        body += chunk.toString();
+      });
+
+      req.on("end", () => {
+        resolve(body);
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}

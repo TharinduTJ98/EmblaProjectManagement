@@ -1,3 +1,4 @@
+<h1>Project List of Project Management System</h1>
 <div class="container">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
@@ -5,14 +6,14 @@
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
       
-        <ng-container matColumnDef="Revenue">
+        <ng-container matColumnDef="revenue">
           <th mat-header-cell *matHeaderCellDef> Revenue </th>
-          <td mat-cell *matCellDef="let element"> {{element.Revenue }} </td>
+          <td mat-cell *matCellDef="let element"> {{element.revenue }} </td>
         </ng-container>
       
-        <ng-container matColumnDef="status">
+        <ng-container matColumnDef="isCompleted">
           <th mat-header-cell *matHeaderCellDef> Status </th>
-          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.isCompleted ? "Completd": "Not Completed"}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Action">

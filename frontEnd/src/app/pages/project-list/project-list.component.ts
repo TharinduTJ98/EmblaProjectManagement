@@ -8,7 +8,7 @@ import { ProjectService } from 'src/app/project.service';
   styleUrls: ['./project-list.component.css']
 })
 export class ProjectListComponent implements OnInit{
-  displayedColumns: string[] = ['name','Revenue', 'status', 'Action'];
+  displayedColumns: string[] = ['name','revenue', 'isCompleted', 'Action'];
   dataSource!: MatTableDataSource<any>;
 
   constructor(private _projectService: ProjectService) {

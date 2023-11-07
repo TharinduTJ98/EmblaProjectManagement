@@ -1,0 +1,23 @@
+.container {
+    flex: 1 1 auto;
+    display: flex;
+  }
+  
+  .label-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 46px;
+  }
+  label{
+    padding: 60px;
+    background-color: rgb(138, 138, 138);
+    width: 121px;
+    height: 112px;
+    border-radius: 10px;
+
+  }
+
+h1{
+    text-align: center;
+}

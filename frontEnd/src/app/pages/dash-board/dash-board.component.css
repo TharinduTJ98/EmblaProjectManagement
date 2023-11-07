@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 400px; /* Set the desired height for the container */
+  }
+  
+  .left-panel {
+    flex: 1;
+  }
+  
+  .right-panel {
+    flex: 3;
+  }
+.button-container{
+    margin: 30px;
+}
+button{
+    margin: 10px;
+    width: 80%;
+}

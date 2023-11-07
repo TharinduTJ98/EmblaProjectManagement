@@ -15,13 +15,19 @@ import { AddProjectComponent } from './pages/add-project/add-project.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DashBoardComponent } from './pages/dash-board/dash-board.component';
+import { TopThreeProjectsComponent } from './pages/top-three-projects/top-three-projects.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     ProjectListComponent,
-    AddProjectComponent
+    AddProjectComponent,
+    DashBoardComponent,
+    TopThreeProjectsComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,8 @@ import {MatInputModule} from '@angular/material/input';
     HttpClientModule,
     MatFormFieldModule,
     MatRadioModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

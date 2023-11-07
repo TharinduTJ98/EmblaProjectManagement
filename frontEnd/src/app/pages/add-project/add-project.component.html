@@ -1,25 +1,28 @@
-<form>
+<h1>Add Project to Project Management System</h1>
+<form [formGroup] = "projectForm" (ngSubmit)="onFormSubmit()">
     <div class="container">
         <div class="row">
             <mat-form-field>
                 <mat-label>Project Name</mat-label>
-                <input matInput>
+                <input matInput formControlName="name">
             </mat-form-field>
         </div>
         <div class="row">
             <mat-form-field>
                 <mat-label>Revenue</mat-label>
-                <input matInput>
+                <input matInput formControlName="revenue">
             </mat-form-field>
         </div>
         <div class="row">
-            <mat-form-field>
-                <mat-label>Status</mat-label>
-                <input matInput>
-            </mat-form-field>
+            <mat-radio-group aria-label="Select an option" formControlName="isCompleted" required="">
+                <mat-label>Select Status</mat-label>
+                <br>
+                <mat-radio-button value="true">Compilted</mat-radio-button>
+                <mat-radio-button value="false">not Complete</mat-radio-button>
+            </mat-radio-group>
         </div>
         <div mat-dialog-actions class="action">
-            <button mat-raised-button color="primary" type="submit">Save</button>
+            <button mat-raised-button color="primary" type="submit" >Save</button>
         </div>
     </div>  
 </form>

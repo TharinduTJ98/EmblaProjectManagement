@@ -10,10 +10,18 @@ export class ProjectService {
   constructor(private _http:HttpClient) { }
 
   getProjects():Observable<any>{
-    return this._http.get("http://localhost:5000/api/v1/projects");
+    return this._http.get("http://localhost:5001/api/v1/projects/all");
   }
 
   deleteProject(id:any):Observable<any>{
-    return this._http.delete(`http://localhost:5000/api/v1/projects/${id}`)
+    return this._http.delete(`http://localhost:5001/api/v1/projects/delete/${id}`)
+  }
+
+  addProject(data: any): Observable<any>{
+    return this._http.post('http://localhost:5001/api/v1/projects/save', data)
+  }
+
+  getTopThreeProjects():Observable<any>{
+    return this._http.get('http://localhost:5001/api/v1/projects/top')
   }
 }

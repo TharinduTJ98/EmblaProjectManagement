@@ -1,50 +1,12 @@
 const projects = [
-    {
-      "id": 1,
-      "name": "Project Breeze",
-      "Revenue": 25000,
-      "status": "not completed"
-    },
-    {
-      "id": 2,
-      "name": "Command Program",
-      "Revenue": 5000,
-      "status": "completed"
-    },
-    {
-      "id": 3,
-      "name": "Project Point",
-      "Revenue": 35000,
-      "status": "not completed"
-    },
-    {
-      "id": 4,
-      "name": "Project Mecha",
-      "Revenue": 9000,
-      "status": "not completed"
-    },
-    { "id": 5, 
-     "name": "Program Pad", 
-     "Revenue": 11000, 
-     "status": "completed" },
-    {
-      "id": 6,
-      "name": "Project Synergy",
-      "Revenue": 18000,
-      "status": "not completed"
-    },
-    {
-      "id": 7,
-      "name": "Dynamic Program",
-      "Revenue": 25000,
-      "status": "not completed"
-    },
-    {
-      "id": 8,
-      "name": "Project Zenen",
-      "Revenue": 12000,
-      "status": "completed"
-    }
+  { id: 1, name: "Project Breeze", revenue: 12365.55, isCompleted: true },
+  { id: 2, name: "Command Program", revenue: 4598.5, isCompleted: false },
+  { id: 3, name: "Project Point", revenue: 6549.75, isCompleted: true },
+  { id: 4, name: "Project Mecha", revenue: 15614.25, isCompleted: false },
+  { id: 5, name: "Program Pad", revenue: 16545.0, isCompleted: true },
+  { id: 6, name: "Project Synergy", revenue: 12456.0, isCompleted: false },
+  { id: 7, name: "Dynamic Program", revenue: 1564.5, isCompleted: true },
+  { id: 8, name: "Project ZenSen", revenue: 12312.75, isCompleted: false },
 ];
 
 module.exports = projects;
