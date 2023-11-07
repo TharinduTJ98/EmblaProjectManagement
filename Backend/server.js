@@ -1,51 +1,42 @@
 const http = require("http");
-const ProjectController = require("./controller/ProjectController");
+const port = 5000;
 
-const port = 5001;
+//Controllers
+const {
+  getAllProjects,
+  getProject,
+  getTopPerformProjects,
+  deleteProject,
+  createProject
+} = require("./controller/ProjectController");
 
 const server = http.createServer((req, res) => {
   // Set CORS headers to allow cross-origin requests
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Headers", "");
 
-  // Handle preflight requests (OPTIONS method)
-  if (req.method === "OPTIONS") {
-    // Reply successfully to preflight request
-    res.writeHead(200, {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-      "Access-Control-Allow-Headers": "Content-Type",
-    });
-    res.end();
-    return;
-  }
-
-  // Define API routes and methods
-  const routes = {
-    "/api/v1/projects/all": {
-      GET: ProjectController.getAllProjects,
-    },
-    "/api/v1/projects/top": {
-      GET: ProjectController.getTopPerformProjects,
-    },
-    "/api/v1/projects/completed": {
-      GET: ProjectController.getCompletedProjects,
-    },
-    "/api/v1/projects/save": {
-      POST: ProjectController.createProject,
-    },
-    "/api/v1/projects/delete": {
-      POST: ProjectController.deleteProject,
-    },
-  };
-
-  // Extract route and method from request
-  const route = routes[req.url] && routes[req.url][req.method];
-
-  // Handle the request based on the defined routes and methods
-  if (route) {
-    route(req, res);
+  if (req.url == "/api/v1/projects" && req.method == "GET") {
+    getAllProjects(req, res);
+  } else if (
+    req.url.match(/\/api\/v1\/projects\/([0-9]+)/) &&
+    req.method == "GET"
+  ) {
+    const id = parseInt(req.url.split("/")[4]);
+    getProject(req, res, id);
+  } else if (
+    req.url == "/api/v1/projects/getTopProject" &&
+    req.method == "GET"
+  ) {
+    getTopPerformProjects(req, res);
+  } else if (
+    req.url.match(/\/api\/v1\/projects\/([0-9]+)/) &&
+    req.method == "DELETE"
+  ) {
+    const id = parseInt(req.url.split("/")[4]);
+    deleteProject(req, res, id);
+  } else if (req.url == "/api/v1/projects" && req.method == "POST") {
+    createProject(req, res);
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ message: "No Routes Found" }));

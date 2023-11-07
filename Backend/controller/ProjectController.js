@@ -25,6 +25,21 @@ function getTopPerformProjects(req, res) {
 }
 
 function getCompletedProjects(req, res) {
+  //make a copy of projects and get the projects where status is completed
+  const completedProjects = [...projects].filter(
+    (project) => project.status === "completed"
+  );
+  if(completedProjects){
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(completedProjects));
+  }else{
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ message: "No completed Projects" }));
+  }
+
+}
+
+function getCompletedProjects(req, res) {
   console.log("getting completed projects");
   const completedProjects = projects.filter((project) => project.isCompleted);
 
@@ -83,6 +98,7 @@ module.exports = {
   getCompletedProjects,
   deleteProject,
   createProject,
+  getCompletedProjects
 };
 
 function getPostData(req) {

@@ -24,4 +24,12 @@ export class ProjectService {
   getTopThreeProjects():Observable<any>{
     return this._http.get('http://localhost:5001/api/v1/projects/top')
   }
+
+  getCompletedProjects():Observable<any>{
+    return this._http.get("http://localhost:5000/api/v1/projects/completed");
+  }
+
+  getTopProjects():Observable<any>{
+    return this._http.get("http://localhost:5000/api/v1/projects/getTopProject");
+  }
 }
