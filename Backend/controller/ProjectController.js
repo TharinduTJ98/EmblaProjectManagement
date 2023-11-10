@@ -20,23 +20,8 @@ function getTopPerformProjects(req, res) {
   if (topPerformProjects.length > 0) {
     sendResponse(res, 200, topPerformProjects);
   } else {
-    sendResponse(res, 404, { message: "No top-performing projects found" });
+    sendResponse(res, 404, []);
   }
-}
-
-function getCompletedProjects(req, res) {
-  //make a copy of projects and get the projects where status is completed
-  const completedProjects = [...projects].filter(
-    (project) => project.status === "completed"
-  );
-  if(completedProjects){
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(completedProjects));
-  }else{
-    res.writeHead(404, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "No completed Projects" }));
-  }
-
 }
 
 function getCompletedProjects(req, res) {
@@ -46,13 +31,13 @@ function getCompletedProjects(req, res) {
   if (completedProjects.length > 0) {
     sendResponse(res, 200, completedProjects);
   } else {
-    sendResponse(res, 404, { message: "No completed projects found" });
+    sendResponse(res, 404, { message: 404 });
   }
 }
 
 async function createProject(req, res) {
   try {
-    const body = await getPostData(req); 
+    const body = await getPostData(req);
 
     const project = JSON.parse(body);
 
@@ -66,27 +51,21 @@ async function createProject(req, res) {
   }
 }
 
-async function deleteProject(req, res) {
+function deleteProject(req, res, pid) {
   try {
-    const body = await getPostData(req);
+    console.log("Trying to delete project", pid);
+    const index = projects.findIndex((project) => project.id === pid);
 
-    const parsedBodyObject = JSON.parse(body); // { id: 1 }
-
-    console.log(parsedBodyObject);
-
-    console.log(typeof parsedBodyObject.id);
-
-    const index = projects.findIndex(
-      (project) => project.id === parsedBodyObject.id
-    );
+    console.log("Index", index);
 
     projects.splice(index, 1);
 
-    sendResponse(
-      res,
-      200,
-      JSON.stringify({ message: `Project ${parsedBodyObject.id} removed` })
-    );
+    if (index === -1) {
+      sendResponse(res, 404, JSON.stringify({ message: "Project Not Found" }));
+      return;
+    } else {
+      sendResponse(res, 200, JSON.stringify({ message: pid }));
+    }
   } catch (error) {
     console.log(error);
   }
@@ -97,8 +76,7 @@ module.exports = {
   getTopPerformProjects,
   getCompletedProjects,
   deleteProject,
-  createProject,
-  getCompletedProjects
+  createProject
 };
 
 function getPostData(req) {

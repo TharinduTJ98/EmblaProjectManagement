@@ -1,5 +1,6 @@
 import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Project } from 'src/app/models/project.model';
 import { ProjectService } from 'src/app/project.service';
 
 @Component({
@@ -7,19 +8,31 @@ import { ProjectService } from 'src/app/project.service';
   templateUrl: './top-three-projects.component.html',
   styleUrls: ['./top-three-projects.component.css']
 })
-export class TopThreeProjectsComponent {
+export class TopThreeProjectsComponent implements OnInit {
 
-  topProjects!: [];
+  topProjects: Project[] = [];
   constructor(private _projectService:ProjectService){
   }
 
-  topThreeProjects(){
-    this._projectService.getTopThreeProjects().subscribe({
-      next: (res) => {
-        this.topProjects = res;
-        
-        console.log(this.topProjects);
-      }
+  ngOnInit(): void {
+    this._projectService.getTopThreeProjects(3).subscribe((data)=> {
+      this.topProjects = data;
     })
+
+    this._projectService.getCompletedProjects().subscribe((data)=>{
+      this.alertCompletedProjects(data);
+    })
+
+
+  } 
+
+  alertCompletedProjects(projects: Project[]): void {
+    let message = `Completed Projects are: ${projects.length} \n \n`;
+    projects.forEach((project) => {
+      message += `\t Project Name: ${project.name} \n`;
+    });
+
+    alert(message);
   }
+  
 }

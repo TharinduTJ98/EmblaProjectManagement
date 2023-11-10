@@ -1,10 +1,11 @@
 <h1>Top Three Projecs</h1>
 <div class="container">
     <div class="label-container">
-      <label *ngFor="let project of topProjects">{{project}}</label>
-      <label>Label 2</label>
-      <label>Label 3</label>
-      <button (click) = "topThreeProjects()">click</button>
+      <label *ngFor="let project of topProjects">
+        <h2>{{project.name}}</h2>
+        <h4>{{project.revenue}}</h4>
+      </label>
+      
     </div>
   </div>
   

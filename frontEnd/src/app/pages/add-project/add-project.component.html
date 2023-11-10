@@ -4,22 +4,14 @@
         <div class="row">
             <mat-form-field>
                 <mat-label>Project Name</mat-label>
-                <input matInput formControlName="name">
+                <input matInput formControlName="name" required="">
             </mat-form-field>
         </div>
         <div class="row">
             <mat-form-field>
                 <mat-label>Revenue</mat-label>
-                <input matInput formControlName="revenue">
+                <input matInput formControlName="revenue" required="">
             </mat-form-field>
-        </div>
-        <div class="row">
-            <mat-radio-group aria-label="Select an option" formControlName="isCompleted" required="">
-                <mat-label>Select Status</mat-label>
-                <br>
-                <mat-radio-button value="true">Compilted</mat-radio-button>
-                <mat-radio-button value="false">not Complete</mat-radio-button>
-            </mat-radio-group>
         </div>
         <div mat-dialog-actions class="action">
             <button mat-raised-button color="primary" type="submit" >Save</button>

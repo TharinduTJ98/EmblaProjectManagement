@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ProjectService } from 'src/app/project.service';
 
 @Component({
@@ -10,11 +11,10 @@ import { ProjectService } from 'src/app/project.service';
 export class AddProjectComponent {
   projectForm: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder, private _projectService: ProjectService ){
+  constructor(private _formBuilder: FormBuilder, private _projectService: ProjectService, private router: Router ){
     this.projectForm = this._formBuilder.group({
       name: '',
       revenue: '',
-      isCompleted:'',
     })
   }
 
@@ -24,6 +24,7 @@ export class AddProjectComponent {
       this._projectService.addProject(this.projectForm.value).subscribe({
         next: (val:any)=>{
           alert("Added Successfully");
+          this.router.navigate(['./projectList'])
         },
         error: (error: any) => {
           console.log(error);

@@ -21,15 +21,15 @@ export class ProjectService {
     return this._http.post('http://localhost:5001/api/v1/projects/save', data)
   }
 
-  getTopThreeProjects():Observable<any>{
+  getTopThreeProjects(count: number = 3):Observable<any>{
     return this._http.get('http://localhost:5001/api/v1/projects/top')
   }
 
   getCompletedProjects():Observable<any>{
-    return this._http.get("http://localhost:5000/api/v1/projects/completed");
+    return this._http.get("http://localhost:5001/api/v1/projects/completed");
   }
 
   getTopProjects():Observable<any>{
-    return this._http.get("http://localhost:5000/api/v1/projects/getTopProject");
+    return this._http.get("http://localhost:5001/api/v1/projects/getTopProject");
   }
 }
